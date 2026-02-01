@@ -1,6 +1,6 @@
 import allure
 import pytest
-from pages.login page import LoginPage
+from pages.login_page import LoginPage
 
 @allure.title("Успешный логин стандартным пользователем")
 def test_successful_login(page):  # 'page' — это фикстура, которую предоставит Playwright
