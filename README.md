@@ -25,7 +25,7 @@
 2. Соберите образ:
 ```bash
 docker build -t saucedemo-tests .
-
+```
 **Для гарантированного запуска установите Chromium:**
 ```bash
 playwright install chromium
