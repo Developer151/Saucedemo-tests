@@ -9,23 +9,61 @@
 - Allure
 - Docker
 
+## Реализованные тест-кейсы
+
+1. ✅ Успешный логин (standard_user / secret_sauce)
+2. ✅ Логин с неверным паролем
+3. ✅ Логин заблокированного пользователя (locked_out_user)
+4. ✅ Логин с пустыми полями
+5. ✅ Логин пользователем performance_glitch_user (с учётом возможных задержек)
+
 ## Структура проекта
-(потом составлю)
+```markdown
+## saucedemo_tests/
+|-- pages/ # Page Object классы
+│   |_login_page.py # Скрипт для работы скрипта по тестам
+|-- tests/ # Тесты
+│   |_1-5_тесты.py # 5 тестов логина
+|-- conftest.py # Фикстуры pytest
+|-- Dockerfile # Контейнеризация
+|-- .dockerignore #Игнорируемое Dockerом
+|-- requirements.txt # Зависимости Python
+|-- .gitignore # Игнорируемое Gitом
+|__ README.md # Документация
+```
 
 ## Установка и запуск
-### Запуск тестов
-
-Тесты автоматически выбирают первый доступный браузер в порядке приоритета:
-1. Chromium (рекомендуется)
-2. Firefox (если нет Chrome)
-3. WebKit (т.е. Safari)
-# Запуск в Docker
-
-1. Убедитесь, что установлен Docker Desktop
-2. Соберите образ:
+### Установка зависимостей
 ```bash
-docker build -t saucedemo-tests .
+pip install -r requirements.txt
+playwright install chromium   # Установите Chromium для гарантированного запуска
 ```
-**Для гарантированного запуска установите Chromium:**
+
+**Тесты автоматически выбирают первый доступный браузер в порядке приоритета:**
+1. Chromium (рекомендуется)
+2. Firefox
+3. WebKit (т.е. Safari)
+
+Чтобы запустить все тесты/один тест:
 ```bash
-playwright install chromium
+pytest tests/1-5_тесты.py -v
+pytest tests/test_login.py::TestLogin::test_successful_login -v
+```
+
+## Генерация отчетов Allure
+### 1. Запустите тесты с сохранением результатов
+pytest --alluredir=allure-results
+### 2. Сгенерируйте HTML-отчёт
+allure generate allure-results -o allure-report --clean
+### 3. Откройте отчёт
+allure open allure-report
+
+**Примечание: Для работы Allure требуется установка Allure CLI отдельно.**
+
+### Запуск в Docker
+1. Убедитесь, что установлен Docker Desktop
+2. Соберите образ и запустите тесты:
+```bash
+docker build -t saucedemo-tests
+docker run --rm saucedemo-tests
+```
