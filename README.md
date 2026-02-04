@@ -28,6 +28,7 @@
 |-- Dockerfile # Контейнеризация
 |-- .dockerignore #Игнорируемое Dockerом
 |-- requirements.txt # Зависимости Python
+|-- run-tests.py #Запуск тестов
 |-- .gitignore # Игнорируемое Gitом
 |__ README.md # Документация
 ```
@@ -47,7 +48,7 @@ playwright install chromium   # Установите Chromium для гаран�
 Чтобы запустить все тесты/один тест:
 ```bash
 pytest tests/1-5_тесты.py -v
-pytest tests/test_login.py::TestLogin::test_successful_login -v
+pytest tests/1-5_тесты.py::TestLogin::test_successful_login -v
 ```
 
 ## Генерация отчетов Allure
@@ -58,7 +59,8 @@ allure generate allure-results -o allure-report --clean
 ### 3. Откройте отчёт
 allure open allure-report
 
-**Примечание: Для работы Allure требуется установка Allure CLI отдельно.**
+**Примечание: Для работы этих команд требуется установка Allure CLI отдельно. 
+А так, run-tests.py всю отчетность автоматом делает.**
 
 ### Запуск в Docker
 1. Убедитесь, что установлен Docker Desktop
