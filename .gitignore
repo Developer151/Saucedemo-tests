@@ -38,10 +38,10 @@ playwright-report/
 test-results/
 
 # Allure
-allure-results/
-allure-report/
-reports/
-
+test-results/         
+allure-results/      
+allure-report/    
+test-results.xml     
 # OS
 .DS_Store
 Thumbs.db
